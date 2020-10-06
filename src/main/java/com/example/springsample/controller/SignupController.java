@@ -4,6 +4,7 @@ import com.example.springsample.domain.model.SignupForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +41,7 @@ public class SignupController {
     // ユーザー登録画面のPOST用コントローラー
     // データバインド結果の受け取り
     @PostMapping("/signup")
-    public String postSignUp(@ModelAttribute SignupForm form, BindingResult bindingResult, Model model){
+    public String postSignUp(@ModelAttribute @Validated SignupForm form, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
             // GETリクエスト用のメソッドを呼び出して、ユーザー登録画面に戻る
             return getSignUp(form, model);
