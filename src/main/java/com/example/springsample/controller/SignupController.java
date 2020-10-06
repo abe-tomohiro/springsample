@@ -1,8 +1,11 @@
 package com.example.springsample.controller;
 
+import com.example.springsample.domain.model.SignupForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.LinkedHashMap;
@@ -13,7 +16,7 @@ public class SignupController {
 
     // ラジオボタンの実装
     private Map<String, String> radioMarriage;
-    // ラジオぼたんの初期化
+    // ラジオボタンの初期化
     private Map<String, String> initRadioMarrige(){
         Map<String, String> radio = new LinkedHashMap<>();
         // 既婚、未婚をMapに格納
@@ -23,9 +26,9 @@ public class SignupController {
         return radio;
     }
 
-    // ユーザー登録画面のGET用コントローラー
+    // ユーザー登録画面のGET用Mapping
     @GetMapping("/signup")
-    public String getSignUp(Model model){
+    public String getSignUp(@ModelAttribute SignupForm form, Model model){
         // ラジオボタン初期化
         radioMarriage = initRadioMarrige();
         // ラジオボタン用のMapをModelに登録
@@ -35,9 +38,17 @@ public class SignupController {
     }
 
     // ユーザー登録画面のPOST用コントローラー
+    // データバインド結果の受け取り
     @PostMapping("/signup")
-    public String postSignUp(Model model){
+    public String postSignUp(@ModelAttribute SignupForm form, BindingResult bindingResult, Model model){
+        if(bindingResult.hasErrors()){
+            // GETリクエスト用のメソッドを呼び出して、ユーザー登録画面に戻る
+            return getSignUp(form, model);
+        }
+        // formの中身をコンソールに出力して確認
+        System.out.println(form);
+
         // login.htmlへリダイレクト
-        return "redirect:login";
+        return "redirect:/login";
     }
 }
