@@ -1,5 +1,6 @@
 package com.example.springsample.controller;
 
+import com.example.springsample.domain.model.GroupOrder;
 import com.example.springsample.domain.model.SignupForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+@SuppressWarnings("SpringMVCViewInspection")
 @Controller
 public class SignupController {
 
@@ -41,7 +43,7 @@ public class SignupController {
     // ユーザー登録画面のPOST用コントローラー
     // データバインド結果の受け取り
     @PostMapping("/signup")
-    public String postSignUp(@ModelAttribute @Validated SignupForm form, BindingResult bindingResult, Model model){
+    public String postSignUp(@ModelAttribute @Validated(GroupOrder.class) SignupForm form, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
             // GETリクエスト用のメソッドを呼び出して、ユーザー登録画面に戻る
             return getSignUp(form, model);
