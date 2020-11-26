@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  web:
+    build:
+      # Dockerfileのappのコピーのために必要なパス指定
+      context: ../
+      # contextから見たDockerfileの場所
+      dockerfile: openjdk/Dockerfile
+    volumes:
+      - ~/git/idea/springsample:/app
+    ports:
+      - "8080:8080"
+      # for remote debug
+      - "5005:5005"
+  db:
+    image: library/postgres:13.1
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./docker_volumes/postgresql/data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=mydb
+
