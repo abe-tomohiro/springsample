@@ -2,16 +2,18 @@ package com.example.springsample.service;
 
 import com.example.springsample.domain.Employee;
 import com.example.springsample.repository.HelloRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
 @Service
 public class HelloService {
-    @Autowired
-    private HelloRepository helloRepository;
-    
+    private final HelloRepository helloRepository;
+
+    public HelloService(HelloRepository helloRepository) {
+        this.helloRepository = helloRepository;
+    }
+
     public Employee findOne(int id){
         // 1件検索実行
         Map<String, Object> map = helloRepository.findOne(id);
