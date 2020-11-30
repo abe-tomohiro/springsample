@@ -17,8 +17,8 @@ public class LoginController {
     // ログイン画面のPOST用コントローラー
     @PostMapping("/login")
     public String postLogin(Model model){
-        // login.htmlへ画面遷移
-        return "login/login";
+        // ホーム画面へ遷移
+        return "redirect:/home";
     }
 
 }

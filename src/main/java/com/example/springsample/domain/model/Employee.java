@@ -1,4 +1,4 @@
-package com.example.springsample.domain;
+package com.example.springsample.domain.model;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
 package com.example.springsample.controller;
 
-import com.example.springsample.domain.Employee;
+import com.example.springsample.domain.model.Employee;
 import com.example.springsample.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
